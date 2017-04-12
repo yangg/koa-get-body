@@ -8,6 +8,7 @@ function main (options) {
   options = Object.assign({
     alias: null,
     uploadDir: os.tmpdir(),
+    jsonTypes: ['json', '+json'], // check type via ctx.is, see https://github.com/jshttp/type-is
     getFileName: (fieldName) => {
       return (Math.random().toString(36) + Date.now().toString(36)).substr(2, 16)
     }
@@ -19,9 +20,9 @@ function main (options) {
     return await next()
     async function getBody (name, defaultValue = '') {
       if (!formData) {
-        if (ctx.is('multipart/*', 'urlencoded')) {
+        if (ctx.is('multipart', 'urlencoded')) {
           formData = await formParser(ctx.req, Object.assign({ headers: ctx.req.headers }, options))
-        } else if (ctx.is('json')) {
+        } else if (ctx.is(options.jsonTypes)) {
           formData = await jsonParser(ctx.req)
         } else {
           formData = Promise.resolve({})
