@@ -9,7 +9,8 @@
   "author": "Brook Yang",
   "license": "MIT",
   "dependencies": {
-    "busboy": "^0.2.14"
+    "busboy": "^0.2.14",
+    "supertest": "^3.0.0"
   },
   "devDependencies": {
     "jasmine": "^2.5.3",

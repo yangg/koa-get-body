@@ -5,7 +5,7 @@ const fs = require('fs')
 const path = require('path')
 
 function main (options) {
-  Object.assign({}, options)
+  options = Object.assign({}, options)
   return async function (ctx, next) {
     let formData
     ctx.request.getBody = getBody
