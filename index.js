@@ -21,7 +21,7 @@ function main (options) {
           formData = Promise.resolve({})
         }
       }
-      if (typeof name !== 'undefined') {
+      if (arguments.length > 0) {
         return formData.hasOwnProperty(name) ? formData[name] : defaultValue
       }
       return formData
@@ -72,11 +72,11 @@ function formParser (req, options) {
       // push text data
       formData[fieldName] = val
     })
-    busboy.on('partsLimit filesLimit fieldsLimit', function () {
+    busboy.on('partsLimit', function () {
       hasError = 'partsLimit'
     })
     busboy.on('filesLimit', function () {
-      hasError = 'filesNumberLimit'
+      hasError = 'filesLimit'
     })
     busboy.on('fieldsLimit', function () {
       hasError = 'fieldsLimit'
