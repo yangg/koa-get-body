@@ -5,7 +5,13 @@ const fs = require('fs')
 const path = require('path')
 
 function main (options) {
-  options = Object.assign({}, options)
+  options = Object.assign({
+    alias: null,
+    uploadDir: os.tmpdir(),
+    getFileName: (fieldName) => {
+      return (Math.random().toString(36) + Date.now().toString(36)).substr(2, 16)
+    }
+  }, options)
   return async function (ctx, next) {
     let formData
     ctx.request.getBody = getBody
@@ -48,8 +54,7 @@ function formParser (req, options) {
     let hasError
     busboy.on('file', function (fieldName, stream, filename, encoding, mimeType) {
       // save tmp files
-      const tmpDir = options.uploadDir ? options.uploadDir : os.tmpdir()
-      const tmpPath = path.join(tmpDir + path.basename(fieldName))
+      const tmpPath = path.join(options.uploadDir, options.getFileName(fieldName))
       let fileSize = 0
       stream.pipe(fs.createWriteStream(tmpPath))
       stream.on('data', function (data) {
