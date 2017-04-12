@@ -15,7 +15,7 @@ yarn add koa-get-body
 * more options: see [Busboy options](https://github.com/mscdex/busboy#busboy-methods)
 
 ## TODO
-[] add support for fieldName with `[]` or `[name]`
+- [ ] add support for fieldName with `[]` or `[name]`
 
 ## License
 MIT
