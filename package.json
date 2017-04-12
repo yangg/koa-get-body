@@ -1,0 +1,14 @@
+{
+  "name": "koa-get-body",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jasmine"
+  },
+  "author": "Brook Yang",
+  "license": "MIT",
+  "dependencies": {
+    "busboy": "^0.2.14"
+  }
+}
