@@ -43,7 +43,7 @@ app.use(async ctx => {
 
 ## Options
 * **alias** - *{string}*, append an alias to koa `ctx`, then you can use `ctx.aliasName()`
-* **jsonTypes** - *{array}*, types to detect as `json`, see [type-is](https://github.com/jshttp/type-is), default: ['json', 'json'], the following mime type will matched: `application/json`, `application/vnd.api+json`, `application/json-patch+json`
+* **jsonTypes** - *{array}*, types to detect as `json`, see [type-is](https://github.com/jshttp/type-is), default: `['json', '+json']`, the following mime types will matched: `application/json`, `application/vnd.api+json`, `application/json-patch+json`
 * **uploadDir** - *{string}*, custom upload dir, default to `os.tmpdir()`
 * **getFileName** - *{function}*, generate upload temp filename in you own way
 * more options: see [Busboy options](https://github.com/mscdex/busboy#busboy-methods)

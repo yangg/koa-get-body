@@ -1,6 +1,6 @@
 {
   "name": "koa-get-body",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "description": "A body parser for koa2, support `urlencoded`, `multipart` and `json`",
   "main": "index.js",
   "scripts": {
@@ -15,5 +15,21 @@
   "devDependencies": {
     "jasmine": "^2.5.3",
     "koa": "^2.2.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yangg/koa-get-body.git"
+  },
+  "keywords": [
+    "koa",
+    "body",
+    "parser",
+    "koa-get-body",
+    "mutipart",
+    "urlencoded"
+  ],
+  "bugs": {
+    "url": "https://github.com/yangg/koa-get-body/issues"
+  },
+  "homepage": "https://github.com/yangg/koa-get-body#readme"
 }

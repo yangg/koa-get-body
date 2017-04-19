@@ -37,13 +37,17 @@ function main (options) {
 }
 
 function jsonParser (req) {
-  return new Promise(resolve => {
+  return new Promise((resolve, reject) => {
     let fullBody = ''
     req.on('data', chunk => {
       fullBody += chunk.toString()
     })
     req.on('end', () => {
-      resolve(JSON.parse(fullBody))
+      try {
+        resolve(JSON.parse(fullBody))
+      } catch (ex) {
+        reject(ex)
+      }
     })
   })
 }

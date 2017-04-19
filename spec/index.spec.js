@@ -4,6 +4,7 @@ const Koa = require('koa')
 const getBody = require('../')
 
 const request = require('supertest')
+const fs = require('fs')
 
 describe('koa-get-body', function () {
   describe('json body', function () {
@@ -62,7 +63,7 @@ describe('koa-get-body', function () {
         const body = await ctx.request.getBody()
         expect(ctx.request.type).toEqual('multipart/form-data')
         expect(body.name).toEqual('koa-get-body')
-        expect(body.avatar.fileSize).toEqual(43)
+        expect(fs.readFileSync(body.avatar.tmpPath)).toEqual(fs.readFileSync(__dirname + '/avatar.gif'))
         ctx.body = body
       })
       request(app.listen())
