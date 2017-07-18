@@ -13,19 +13,19 @@ function main (options) {
       return (Math.random().toString(36) + Date.now().toString(36)).substr(2, 16)
     }
   }, options)
-  return async function (ctx, next) {
+  return function (ctx, next) {
     let formData
     ctx.request.getBody = getBody
     options.alias && (ctx[options.alias] = getBody)
-    return await next()
+    return next()
     async function getBody (name, defaultValue = '') {
       if (!formData) {
         if (ctx.is('multipart', 'urlencoded')) {
           formData = await formParser(ctx.req, Object.assign({ headers: ctx.req.headers }, options))
         } else if (ctx.is(options.jsonTypes)) {
-          formData = await jsonParser(ctx.req)
+          formData = JSON.parse(await rawBody(ctx.req))
         } else {
-          formData = Promise.resolve({})
+          formData = await rawBody(ctx.req)
         }
       }
       if (arguments.length > 0) {
@@ -36,7 +36,7 @@ function main (options) {
   }
 }
 
-function jsonParser (req) {
+function rawBody (req) {
   return new Promise((resolve, reject) => {
     let fullBody = ''
     req.on('data', chunk => {
@@ -44,7 +44,7 @@ function jsonParser (req) {
     })
     req.on('end', () => {
       try {
-        resolve(JSON.parse(fullBody))
+        resolve(fullBody)
       } catch (ex) {
         reject(ex)
       }
