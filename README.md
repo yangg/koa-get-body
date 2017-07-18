@@ -1,6 +1,6 @@
 
 # koa-get-body
-A body parser for koa2, support `urlencoded`, `multipart` and `json`
+A body parser for koa2, support `urlencoded`, `multipart` and `json` (return raw body for non-supported mime types)
 
 [![Build Status](https://travis-ci.org/yangg/koa-get-body.svg?branch=master)](https://travis-ci.org/yangg/koa-get-body)
 [![npm:](https://img.shields.io/npm/v/koa-get-body.svg?style=flat)](https://www.npmjs.com/packages/koa-get-body)

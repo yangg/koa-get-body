@@ -72,5 +72,20 @@ describe('koa-get-body', function () {
       .attach('avatar', 'spec/avatar.gif')
       .expect('name', 'koa-get-body', done)
     })
+
+    it('should return raw body for non-supported mime types', function (done) {
+      app.use(getBody())
+
+      app.use(async ctx => {
+        const body = await ctx.request.getBody()
+        expect(body).toEqual('hello')
+        ctx.body = body
+      })
+      request(app.listen())
+      .post('/')
+      .type('text')
+      .send('hello')
+      .expect('hello', done)
+    })
   })
 })
