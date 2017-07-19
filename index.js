@@ -9,6 +9,9 @@ function main (options) {
     alias: null,
     uploadDir: os.tmpdir(),
     jsonTypes: ['json', '+json'], // check type via ctx.is, see https://github.com/jshttp/type-is
+    xmlTypes: '*/xml',
+    textTypes: 'text/*',
+    xmlParser: null,
     getFileName: (fieldName) => {
       return (Math.random().toString(36) + Date.now().toString(36)).substr(2, 16)
     }
@@ -19,13 +22,18 @@ function main (options) {
     options.alias && (ctx[options.alias] = getBody)
     return next()
     async function getBody (name, defaultValue = '') {
-      if (!formData) {
+      if (formData === undefined) {
         if (ctx.is('multipart', 'urlencoded')) {
           formData = await formParser(ctx.req, Object.assign({ headers: ctx.req.headers }, options))
         } else if (ctx.is(options.jsonTypes)) {
           formData = JSON.parse(await rawBody(ctx.req))
         } else {
           formData = await rawBody(ctx.req)
+          if (ctx.is(options.xmlTypes) && options.xmlParser) {
+            formData = await options.xmlParser(formData)
+          } else if (ctx.is(options.textTypes)) {
+            formData = formData.toString()
+          }
         }
       }
       if (arguments.length > 0) {
@@ -38,13 +46,13 @@ function main (options) {
 
 function rawBody (req) {
   return new Promise((resolve, reject) => {
-    let fullBody = ''
+    const reqBuffers = []
     req.on('data', chunk => {
-      fullBody += chunk.toString()
+      reqBuffers.push(chunk)
     })
     req.on('end', () => {
       try {
-        resolve(fullBody)
+        resolve(Buffer.concat(reqBuffers))
       } catch (ex) {
         reject(ex)
       }

@@ -1,6 +1,6 @@
 {
   "name": "koa-get-body",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "A body parser for koa2, support `urlencoded`, `multipart` and `json`",
   "main": "index.js",
   "scripts": {
@@ -9,12 +9,13 @@
   "author": "Brook Yang",
   "license": "MIT",
   "dependencies": {
-    "busboy": "^0.2.14",
-    "supertest": "^3.0.0"
+    "busboy": "^0.2.14"
   },
   "devDependencies": {
     "jasmine": "^2.5.3",
-    "koa": "^2.2.0"
+    "koa": "^2.2.0",
+    "supertest": "^3.0.0",
+    "xml2js": "^0.4.17"
   },
   "repository": {
     "type": "git",
